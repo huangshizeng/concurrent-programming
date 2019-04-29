@@ -1,4 +1,4 @@
-package com.huang.thread;
+package com.huang.thread.example1;
 
 import java.util.LinkedList;
 import java.util.Queue;
