@@ -10,7 +10,7 @@ package com.huang.thread.single;
 public class Singleton {
 
     //volatile禁止重排序
-    private static volatile Singleton singleton;
+    private volatile static Singleton singleton;
 
     public static Singleton getSingleton() {
         if (singleton == null) {
