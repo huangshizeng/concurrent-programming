@@ -1,4 +1,4 @@
-package com.huang.thread.countdownlatch;
+package com.huang.thread;
 
 import java.util.concurrent.CountDownLatch;
 
