@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 /**
- * 自定义共享锁
+ * 自定义共享锁，与Semaphore实现类似
  *
  * @author hsz
  */
@@ -30,13 +30,14 @@ public class SharedLock implements Lock {
 
         @Override
         protected int tryAcquireShared(int reduceCount) {
-            int current = getState();
-            int newCount = current - reduceCount;
-            if (newCount >= 0 && compareAndSetState(current, newCount)) {
-                return newCount;
+            for (; ; ) {
+                int current = getState();
+                int newCount = current - reduceCount;
+                // 若无锁可获时，直接返回负数，若因为CAS失败则循环再来
+                if (newCount < 0 || compareAndSetState(current, newCount)) {
+                    return newCount;
+                }
             }
-            // 获取锁失败
-            return -1;
         }
 
         @Override
